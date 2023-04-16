@@ -39,7 +39,11 @@ public class DZ01 {
     }
 
     public static String methodFive(String name) {
-        return "Привет " + name + "!";
+        if (name != null && name.length() > 0) {
+            return "Привет " + name + "!";
+        } else {
+         return "Имя не может быть пустым!";
+        }
     }
 
     public static boolean methodSix(int year) {
