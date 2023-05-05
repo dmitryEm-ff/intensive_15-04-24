@@ -28,6 +28,9 @@ public class LombokExample {
 
         System.out.println("Equal: " + lombokExample01.equals(lombokExample02)); //false
         System.out.println("Equal: " + Objects.equals(lombokExample02, lombokExample03)); //true
+        System.out.println("Пример геттеров, определены только в Lombok");
+        System.out.println(lombokExample01.getCats());
+        System.out.println(lombokExample01.getCounter());
     }
 
 
