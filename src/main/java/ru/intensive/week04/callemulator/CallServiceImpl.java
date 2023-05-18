@@ -1,10 +1,14 @@
 package ru.intensive.week04.callemulator;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 public class CallServiceImpl implements CallService{
     private CallService callService;
     private int maxCallsPerMinute;
     private int lastCallsPerMinute;
     private long lastCallTime;
+    private final Queue<Long> queue = new ConcurrentLinkedQueue<>();
 
     public CallServiceImpl(CallService callService, int maxCallsPerMinute) {
         this.callService = callService;
@@ -17,14 +21,16 @@ public class CallServiceImpl implements CallService{
     public void printMessage() {
         long currentCallTime = System.currentTimeMillis();
 
-        if (currentCallTime - lastCallTime > 60000) {
-            lastCallTime = System.currentTimeMillis();
-            lastCallsPerMinute = 0;
+        if (queue.peek() != null && (queue.peek() + (currentCallTime - queue.peek())) - lastCallTime > 60000) {
+            lastCallTime = queue.peek();
+            lastCallsPerMinute--;
+            queue.poll();
         }
 
         if (lastCallsPerMinute < maxCallsPerMinute) {
             callService.printMessage();
             lastCallsPerMinute++;
+            queue.add(System.currentTimeMillis());
         } else {
             System.out.println("Limit reached! Print to Log!");
         }
