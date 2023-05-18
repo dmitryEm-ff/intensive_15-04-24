@@ -33,19 +33,22 @@ public class RegExExamples {
 
         System.out.println("3. Проверить что строка содержит букву g, но при этом она не является началом," +
                 " или концом ни одного из слов в строке");
-        System.out.println("wergwer");
-        System.out.println(checkGinWordNotInStartOrEnd("wergwer"));
+        System.out.println("stay good");
+        System.out.println(checkGinWordNotInStartOrEnd("stay good"));
         System.out.println("werwer");
         System.out.println(checkGinWordNotInStartOrEnd("werwer"));
         System.out.println("gerw");
         System.out.println(checkGinWordNotInStartOrEnd("gerw"));
         System.out.println("werg");
         System.out.println(checkGinWordNotInStartOrEnd("werg"));
+        System.out.println("sage");
+        System.out.println(checkGinWordNotInStartOrEnd("sage"));
         System.out.println(System.lineSeparator());
 
 
         System.out.println("4. Написать программу извлекающую из текста все html - теги");
         System.out.println(getHTMLTags("<p>Hello <code>Everybody</code> nice to meet u Hope to see u soon.</p>"));
+        System.out.println(getHTMLTags("<p>Hello <code>Everybody</code> nice to meet u Hope to see u soon.</p>test<*p12>"));
         System.out.println(System.lineSeparator());
 
         System.out.println("5. Написать программу проверяющую, является ли входная строка email адресом");
@@ -62,8 +65,7 @@ public class RegExExamples {
     }
 
     public static boolean checkCharDigitUnderscores(String string) {
-        return string != null && string.matches("^[a-zA-Z0-9_]+$");
-//        return string != null && string.matches("^[\\w]+$");
+        return string != null && string.matches("^[\\w]+$");
     }
 
     public static boolean checkLowRegCharUnderscoreCon(String string) {
@@ -71,22 +73,22 @@ public class RegExExamples {
     }
 
     public static boolean checkGinWordNotInStartOrEnd(String string) {
-        return string != null && string.matches("^[^gG].*[gG].*[^gG]$");
+        String pattern = "\\B[gG]\\B";
+        return Pattern.compile(pattern).matcher(string).find();
     }
 
     public static List<String> getHTMLTags(String string) {
         List<String> rsl = new ArrayList<>();
-        Pattern pattern = Pattern.compile("(<.+?>)");
-        Matcher matcher = pattern.matcher(string);
+        String pattern = "</?[a-zA-Z!][^>]*>";
+        Matcher matcher = Pattern.compile(pattern).matcher(string);
         while(matcher.find()) {
-            String tag = matcher.group(1);
-            rsl.add(tag);
+            rsl.add(matcher.group());
         }
         return rsl;
     }
 
     public static boolean isEmail(String string) {
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
     }
