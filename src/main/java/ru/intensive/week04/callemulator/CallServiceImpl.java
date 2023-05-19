@@ -21,10 +21,10 @@ public class CallServiceImpl implements CallService{
     public void printMessage() {
         long currentCallTime = System.currentTimeMillis();
 
-        if (queue.peek() != null && (queue.peek() + (currentCallTime - queue.peek())) - lastCallTime > 60000) {
+        if (queue.peek() != null && currentCallTime - queue.peek() > 60000) {
             lastCallTime = queue.peek();
             lastCallsPerMinute--;
-            queue.poll();
+            queue.remove();
         }
 
         if (lastCallsPerMinute < maxCallsPerMinute) {
