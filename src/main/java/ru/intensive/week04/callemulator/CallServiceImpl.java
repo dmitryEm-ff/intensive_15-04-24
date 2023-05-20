@@ -1,5 +1,6 @@
 package ru.intensive.week04.callemulator;
 
+import java.util.Date;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -32,7 +33,8 @@ public class CallServiceImpl implements CallService{
             lastCallsPerMinute++;
             queue.add(System.currentTimeMillis());
         } else {
-            System.out.println("Limit reached! Print to Log!");
+            String formattedTime = dateFormat.format(new Date(System.currentTimeMillis()));
+            System.out.printf("Limit reached! Print to Log! Current time is : %s%n", formattedTime);
         }
     }
 }
