@@ -3,6 +3,7 @@ package ru.intensive.week04;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +49,7 @@ public class RegExExamples {
 
         System.out.println("4. Написать программу извлекающую из текста все html - теги");
         System.out.println(getHTMLTags("<p>Hello <code>Everybody</code> nice to meet u Hope to see u soon.</p>"));
-        System.out.println(getHTMLTags("<p>Hello <code>Everybody</code> nice to meet u Hope to see u soon.</p>test<*p12>"));
+        System.out.println(getHTMLTags("<p>Hello <code>Everybody</code> nice to meet u Hope to see u soon.</p>test<*p12> Test<p11$%*3> Test <p11&3>"));
         System.out.println(System.lineSeparator());
 
         System.out.println("5. Написать программу проверяющую, является ли входная строка email адресом");
@@ -60,7 +61,7 @@ public class RegExExamples {
 
         System.out.println("6. Напишите программу, которая принимает на вход число и выводит его в денежном формате.");
         System.out.println("1234567.89");
-        System.out.println(doFormat("1234567.89"));
+        System.out.println(doFormat(1234567.89));
         System.out.println(System.lineSeparator());
     }
 
@@ -79,7 +80,7 @@ public class RegExExamples {
 
     public static List<String> getHTMLTags(String string) {
         List<String> rsl = new ArrayList<>();
-        String pattern = "</?[a-zA-Z!][^>]*>";
+        String pattern = "</?[a-zA-Z!][^>]*(?<![\\$\\*\\?])(?<!\\d)>";
         Matcher matcher = Pattern.compile(pattern).matcher(string);
         while(matcher.find()) {
             rsl.add(matcher.group());
@@ -93,8 +94,9 @@ public class RegExExamples {
         return matcher.matches();
     }
 
-    public static String doFormat(String string) {
-        return new DecimalFormat("$###,###.##").format(Double.parseDouble(string));
-//        return String.format("$%,.2f", Double.parseDouble(string));
+    public static String doFormat(double value) {
+        Locale locale = Locale.US;
+        String pattern = "$%,.2f";
+        return String.format(locale, pattern, value);
     }
 }
