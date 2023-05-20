@@ -33,8 +33,7 @@ public class CallServiceImpl implements CallService{
             lastCallsPerMinute++;
             queue.add(System.currentTimeMillis());
         } else {
-            String formattedTime = dateFormat.format(new Date(System.currentTimeMillis()));
-            System.out.printf("Limit reached! Print to Log! Current time is : %s%n", formattedTime);
+            System.out.printf("Limit reached! Print to Log! Current time is : %s%n", doFormat(System.currentTimeMillis()));
         }
     }
 }
