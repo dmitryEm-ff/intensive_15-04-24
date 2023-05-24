@@ -80,7 +80,7 @@ public class RegExExamples {
 
     public static List<String> getHTMLTags(String string) {
         List<String> rsl = new ArrayList<>();
-        String pattern = "</?[a-zA-Z!][^>]*(?<![\\$\\*\\?])(?<!\\d)>";
+        String pattern = "(</?[a-z]*>|</?[A-Z]*>)";
         Matcher matcher = Pattern.compile(pattern).matcher(string);
         while(matcher.find()) {
             rsl.add(matcher.group());
