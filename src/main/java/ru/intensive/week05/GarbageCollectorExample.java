@@ -2,6 +2,10 @@ package ru.intensive.week05;
 
 import java.util.logging.Logger;
 
+/**
+ *Параметры -XX:+PrintGCDateStamps, -Xloggc:Tools/gc.log считаются устаревшими
+ * после 9 java используются параметры: -Xlog:gc*:<путь к файлу>:time -XX:+PrintGCDetails
+ */
 public class GarbageCollectorExample {
     private static Logger LOGGER = Logger.getLogger(GarbageCollectorExample.class.getName());
 
@@ -23,4 +27,3 @@ public class GarbageCollectorExample {
         }
     }
 }
-// -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:Tools/gc.log
