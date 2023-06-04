@@ -14,13 +14,13 @@ public class CopyExample {
      * FileReader\FileWriter. На выполнение ушло: 0.3667653 секунд
      * BufferedFileReader\BufferedFileWriter. На выполнение ушло: 0.3241605 секунд
      * FileInputStream\FileOutputStream. На выполнение ушло: 0.7588637 секунд
-     * BufferedFileReader\BufferedFileWriter. На выполнение ушло: 0.184939 секунд
+     * BufferedInputStream\BufferedOutputStream. На выполнение ушло: 0.184939 секунд
      *
      * При буфере [4096] результаты:
      * FileReader\FileWriter. На выполнение ушло: 0.4034454 секунд
      * BufferedFileReader\BufferedFileWriter. На выполнение ушло: 0.4926459 секунд
      * FileInputStream\FileOutputStream. На выполнение ушло: 0.345136 секунд
-     * BufferedFileReader\BufferedFileWriter. На выполнение ушло: 0.1856381 секунд
+     * BufferedInputStream\BufferedOutputStream. На выполнение ушло: 0.1856381 секунд
      */
     public static void main(String[] args) {
         generateFile();
@@ -125,7 +125,7 @@ public class CopyExample {
         long endTime = System.nanoTime();
 
         double duration = (endTime - startTime) / 1_000_000_000.0;
-        System.out.println("BufferedFileReader\\BufferedFileWriter. На выполнение ушло: " + duration + " секунд");
+        System.out.println("BufferedInputStream\\BufferedOutputStream. На выполнение ушло: " + duration + " секунд");
     }
 
     private static void imageCopy(){
