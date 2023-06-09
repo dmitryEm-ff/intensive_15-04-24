@@ -39,14 +39,15 @@ public class CollectionsExmpl {
     }
 
     public static void uniqueWords(String[] array) {
-        Set<String> unique = new HashSet<>();
-        int counter = 0;
+        Map<String, Integer> map = new HashMap<>();
         for (String s : array) {
-            if (!unique.add(s)) {
-                counter++;
+            if (!map.containsKey(s)) {
+                map.put(s, 1);
+            } else {
+                map.put(s, map.get(s) + 1);
             }
         }
-        System.out.println("Уникальные слова: " + unique);
-        System.out.println("Повторов: " + counter);
+        System.out.println("Уникальные слова: " + map.keySet());
+        System.out.println("Слово -> Кол-во повторов: " + map);
     }
 }
