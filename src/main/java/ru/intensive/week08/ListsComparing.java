@@ -37,24 +37,24 @@ public class ListsComparing {
         }
 
         // Вставка в начало
-        measureTime(arrayList, linkedList, insertions, "beginning");
+        measureTime(arrayList, linkedList, insertions, PlaceEnum.BEGINNING);
 
         // Вставка в конец
-        measureTime(arrayList, linkedList, insertions, "end");
+        measureTime(arrayList, linkedList, insertions, PlaceEnum.END);
 
         // Вставка в середину
-        measureTime(arrayList, linkedList, insertions, "middle");
+        measureTime(arrayList, linkedList, insertions, PlaceEnum.MIDDLE);
 
         // Запрос рандомного элемента
-        measureTime(arrayList, linkedList, insertions, "random");
+        measureTime(arrayList, linkedList, insertions, PlaceEnum.RANDOM);
     }
 
-    private static void measureTime(List<Integer> arrayList, List<Integer> linkedList, int insertions, String operation) {
+    private static void measureTime(List<Integer> arrayList, List<Integer> linkedList, int insertions, PlaceEnum operation) {
         Random rand = new Random();
         long start, end;
 
         switch (operation) {
-            case "beginning":
+            case BEGINNING:
                 start = System.nanoTime();
                 for (int i = 0; i < insertions; i++) {
                     arrayList.add(0, i);
@@ -70,7 +70,7 @@ public class ListsComparing {
                 System.out.println("LinkedList вставка в начало: " + (end - start) + " ns");
                 break;
 
-            case "end":
+            case END:
                 start = System.nanoTime();
                 for (int i = 0; i < insertions; i++) {
                     arrayList.add(i);
@@ -86,7 +86,7 @@ public class ListsComparing {
                 System.out.println("LinkedList вставка в конец: " + (end - start) + " ns");
                 break;
 
-            case "middle":
+            case MIDDLE:
                 start = System.nanoTime();
                 for (int i = 0; i < insertions; i++) {
                     arrayList.add(arrayList.size() / 2, i);
@@ -102,7 +102,7 @@ public class ListsComparing {
                 System.out.println("LinkedList вставка в середину: " + (end - start) + " ns");
                 break;
 
-            case "random":
+            case RANDOM:
                 start = System.nanoTime();
                 for (int i = 0; i < insertions; i++) {
                     arrayList.get(rand.nextInt(arrayList.size()));
@@ -118,5 +118,12 @@ public class ListsComparing {
                 System.out.println("LinkedList берем рандом: " + (end - start) + " ns");
                 break;
         }
+    }
+
+    public enum PlaceEnum {
+        BEGINNING,
+        MIDDLE,
+        END,
+        RANDOM
     }
 }
