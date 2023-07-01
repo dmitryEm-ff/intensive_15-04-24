@@ -1,5 +1,8 @@
 package ru.intensive.week08;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,10 +123,14 @@ public class ListsComparing {
         }
     }
 
+    @Getter
+    @RequiredArgsConstructor
     public enum PlaceEnum {
-        BEGINNING,
-        MIDDLE,
-        END,
-        RANDOM
+        BEGINNING("Вставка в начало"),
+        MIDDLE("Вставка в середину"),
+        END("Вставка в конец"),
+        RANDOM("Выбор в случайном порядке");
+
+        private final String description;
     }
 }
