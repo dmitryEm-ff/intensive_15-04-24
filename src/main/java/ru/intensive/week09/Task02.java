@@ -14,27 +14,13 @@ public class Task02 {
     public static void main(String[] args) {
         String[] strings = {"Astra", "Gorod Moskva", "River", "Ruslan", "Albatross", "Gorod"};
 
-        BinaryOperator<String> func2 = (x1, x2) -> {
-            if (x1 == null) {
-                return x2.length() <= 10 ? x2 : null;
-            } else if (x1.length() <= 10 && x2.length() <= 10) {
-                return x1.length() > x2.length() ? x1 : x2;
-            } else if (x1.length() <= 10) {
-                return x1;
-            } else if (x2.length() <= 10) {
-                return x2;
-            } else {
-                return null;
-            }
-        };
-
-        Map<Character, Optional<String>> resultMap = Arrays.stream(strings)
-                .collect(Collectors.groupingBy(str -> str.charAt(0),
-                        Collectors.reducing(func2)));
-
-        resultMap.entrySet().stream()
-                .filter(e -> e.getValue().isPresent() && e.getValue().get().length() > 10)
-                .forEach(e -> e.setValue(Optional.empty()));
+        Map<Character, String> resultMap = Arrays.stream(strings)
+                .filter(str -> str.length() <= 10)
+                .collect(Collectors.toMap(
+                        str -> str.charAt(0),
+                        str -> str,
+                        BinaryOperator.maxBy(Comparator.comparingInt(String::length))
+                ));
 
         System.out.println(resultMap);
     }
