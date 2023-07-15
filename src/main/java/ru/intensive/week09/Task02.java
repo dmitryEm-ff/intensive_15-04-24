@@ -1,10 +1,9 @@
 package ru.intensive.week09;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * На основе списка строк сформировать мапу
@@ -13,44 +12,30 @@ import java.util.stream.Collectors;
  */
 public class Task02 {
     public static void main(String[] args) {
-//        Map<String, String> map = list.stream().collect(Collectors.groupingBy(
-//                s -> s.substring(0, 1),
-//                Collectors.collectingAndThen(
-//                        Collectors.maxBy(Comparator.comparingInt(String::length)),
-//                        optional -> optional.filter(o -> o.length() <= 10).orElse(null)
-//                )
-//        ));
-//
-//        map.forEach((k, v) -> System.out.println(k + " " + v));
-
-
-        List<String> list = List.of("Astra", "Gorod Moskva", "River", "Ruslan", "Albatross", "Gorod");
+        String[] strings = {"Astra", "Gorod Moskva", "River", "Ruslan", "Albatross", "Gorod"};
 
         BinaryOperator<String> func2 = (x1, x2) -> {
             if (x1 == null) {
-                if (x2.length() > 10) {
-                    return null;
-                } else {
-                    return x2;
-                }
+                return x2.length() <= 10 ? x2 : null;
+            } else if (x1.length() <= 10 && x2.length() <= 10) {
+                return x1.length() > x2.length() ? x1 : x2;
+            } else if (x1.length() <= 10) {
+                return x1;
+            } else if (x2.length() <= 10) {
+                return x2;
             } else {
-                if (x1.length() >= 10 && x2.length() >= 10) {
-                    return null;
-                } else if (x1.length() >= 10) {
-                    return x2;
-                } else if (x2.length() >= 10) {
-                    return x1;
-                } else {
-                    return x1.compareTo(x2) > 0 ? x1 : x2;
-                }
+                return null;
             }
         };
 
-        Map<Character, String> map = list.stream().collect(Collectors.groupingBy(
-                    c -> c.charAt(0),
-                    Collectors.reducing(null, func2))
-        );
+        Map<Character, Optional<String>> resultMap = Arrays.stream(strings)
+                .collect(Collectors.groupingBy(str -> str.charAt(0),
+                        Collectors.reducing(func2)));
 
-        System.out.println(map);
+        resultMap.entrySet().stream()
+                .filter(e -> e.getValue().isPresent() && e.getValue().get().length() > 10)
+                .forEach(e -> e.setValue(Optional.empty()));
+
+        System.out.println(resultMap);
     }
 }
