@@ -7,8 +7,6 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientHandler implements Runnable {
-    private static final int PORT = 1234;
-    private static final String HOST = "localhost";
     private Socket clientSocket;
     private Task02Server task02Server;
     private static AtomicInteger clientCounter = new AtomicInteger();
