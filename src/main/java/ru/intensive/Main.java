@@ -1,7 +1,7 @@
 package ru.intensive;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Test");
+    public static void main(String[] args) throws InterruptedException {
+
     }
 }
